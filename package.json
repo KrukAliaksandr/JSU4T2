@@ -1,0 +1,43 @@
+{
+  "name": "jsu4t2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prestart-webdriver": "webdriver-manager update",
+    "start-webdriver": "webdriver-manager start",
+    "protractor": "protractor conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KrukAliaksandr/JSU4T2.git"
+  },
+  "author": "Aliaksandr_Kruk@epam.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KrukAliaksandr/JSU4T2/issues"
+  },
+  "homepage": "https://github.com/KrukAliaksandr/JSU4T2#readme",
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "jasmine": "^3.3.1",
+    "selenium-webdriver": "3.6.0"
+  },
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-spies": "1.0.0",
+    "gulp": "^4.0.0",
+    "gulp-istanbul": "^1.1.3",
+    "gulp-jasmine": "^2.3.0",
+    "jasmine-reporters": "^2.1.1",
+    "mocha": "^5.2.0",
+    "mochawesome": "3.0.3",
+    "nyc": "13.1.0"
+  }
+}
