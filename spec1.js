@@ -1,9 +1,5 @@
 // spec.js
 // const loginInput = element(by.css('.pinky-template .large-input'));
-const secondNumber = element(by.model('second'));
-const goButton = element(by.id('gobutton'));
-const latestResult = element(by.binding('latest'));
-const history = element.all(by.repeater('result in memory'));
 const webdriver = require('selenium-webdriver');
 const until = protractor.ExpectedConditions
 
