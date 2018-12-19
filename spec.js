@@ -9,36 +9,20 @@ describe('End to End AngularApp testing', function () {
   const loginField = element(by.css('input#username'));
   const passwordField = element(by.css('input#password'));
   const logInBtn = element(by.css('button#login_btn'));
-  const usrPrfBtn = element(by.xpath('//a[@class=\'WidgetUserDetails-username\']'));
+  const usrPrfBtn = element(by.xpath('//a[@class="WidgetUserDetails-username"]'));
   const profileUsrField = element(by.className('profile-username-wrapper'));
   const addSkillBtn = element(by.id('add-skills-btn'));
   const skillSelectionWindowTitle = element(by.className('skill-selector-modal-title'));
   const skillSelectionSkillItems = element.all(by.css('.skill-select-bubble.is-selected'));
   const skillSelectionSkillFirstItem = element(by.css('.skill-select-bubble.is-selected'));
-  const editPrflBtn = element(by.css('button[class=\'btn btn-large btn-info btn-edit-trigger\']'));
+  const editPrflBtn = element(by.css('button[class$="trigger"]'));
   const closeSkillSelectionBtn = element(by.css('.skill-selector-modal-header>button'));
   const profileSkillItems = element.all(by.className('VerificationsList-item ng-scope'))
-  const jobsBtn = element(by.css('a[href=\'/jobs/myskills\']'));
-  const worksSkillsItems = element.all(by.css('fl-tag-input[autocomplete*=\'ProjectsFilter.filterOptions.jobs\'] div.input-tag'));
-  const clearSkillsBtn = element(by.css('li.filter-item-group button[ng-click=\'ProjectsFilter.clearSkills()\']'));
-  const sidebarLogOutBtn = element(by.css('a[fltrackinglabel=\'SidebarLogout\']'));
-  const startLogInBtn = element(by.css('a[href=\'/login\']'));
-
-  // it('Fill login and password', async function () {
-  //   await browser.waitForAngularEnabled(false);
-  //   await browser.get('https://www.freelancer.com/login');
-  //   await browser.wait(until.presenceOf(loginField), 15000);
-  //   await loginField.sendKeys('testautomationuser990@gmail.com');
-  //   await passwordField.sendKeys('98979897aa');
-  // });
-
-  // it('press Log In button', async function () {
-  //   await browser.waitForAngularEnabled(false);
-  //   await logInBtn.click();
-  //   await browser.wait(until.presenceOf(usrPrfBtn), 15000);
-  //   await browser.waitForAngularEnabled(true);
-  //   expect(usrPrfBtn.getText()).toEqual('Aliaksandr K.');
-  // });
+  const jobsBtn = element(by.css('a[href="/jobs/myskills"]'));
+  const worksSkillsItems = element.all(by.css('fl-tag-input[autocomplete*="ProjectsFilter.filterOptions.jobs"] div.input-tag'));
+  const clearSkillsBtn = element(by.css('li.filter-item-group button[ng-click="ProjectsFilter.clearSkills()"]'));
+  const sidebarLogOutBtn = element(by.css('a[fltrackinglabel="SidebarLogout"]'));
+  const startLogInBtn = element(by.css('a[href="/login"]'));
 
   it('huge test', async function () {
     await browser.get('https://www.freelancer.com/login');
@@ -93,9 +77,7 @@ describe('End to End AngularApp testing', function () {
 
   it('Check for skills after exit without save', async function () {
     let editableSkills = [];
-    // await browser.wait(until.visibilityOf(closeSkillSelectionBtn), 5000);
     await closeSkillSelectionBtn.click();
-    // await browser.wait(until.visibilityOf(profileSkillItems), 15000);
     await profileSkillItems
       .then((skills) => {
         skills.forEach((skill) => {
@@ -112,7 +94,6 @@ describe('End to End AngularApp testing', function () {
   it('Check for skills in jobs', async function () {
     let jobsSkills = [];
     await jobsBtn.click();
-    // await browser.wait(until.visibilityOf(worksSkillsItems), 15000);
     await worksSkillsItems.then((skills) => {
       skills.forEach((skill) => {
         let someText = (skill.getText()).then(rawText => rawText.replace(/(\r\n\t|\n|\r\t)/gm, '')).then(properText => properText.trim());
@@ -141,37 +122,32 @@ describe('End to End AngularApp testing', function () {
   });
 
   it('Click Logout Button', async function () {
-    // await browser.wait(until.visibilityOf(element(by.css('a[fltrackinglabel=\'SidebarLogout\']'))), 15000);
     await sidebarLogOutBtn.click();
-    // await browser.wait(until.visibilityOf(startLogInBtn), 15000);
     expect(startLogInBtn.getText()).toEqual('Log In');
   });
 });
 describe('non-Angular page test', function () {
   const searchBox = element(by.css('input#twotabsearchtextbox'));
-  const startSearchBtn = element(by.css('input.nav-input[value=\'Go\']'));
-  const itemForSearch = element(by.css('div.s-item-container h2[data-attribute*=\'Lenovo IdeaPad 2019\']'));
+  const startSearchBtn = element(by.css('input.nav-input[value="Go"]'));
+  const itemForSearch = element(by.css('div.s-item-container h2[data-attribute*="Lenovo IdeaPad 2019"]'));
   const productNameFull = element(by.css('span#productTitle'));
 
   it('start search at www.amazon.com', async function () {
     browser.waitForAngularEnabled(false);
     browser.get('https://www.amazon.com');
-    // await browser.wait(until.visibilityOf(searchBox), 15000);
     searchBox.sendKeys('Lenovo');
   });
 
   it('check for title of product at www.amazon.com', async function () {
-    // await browser.wait(until.visibilityOf(startSearchBtn), 15000);
     startSearchBtn.click();
   });
 
   it('check for title of product at www.amazon.com', async function () {
-    await browser.wait(until.visibilityOf(element(by.css('div.s-item-container h2[data-attribute*=\'Lenovo IdeaPad 2019\']'))), 15000);
+    await browser.wait(until.visibilityOf(element(by.css('div.s-item-container h2[data-attribute*="Lenovo IdeaPad 2019"]'))), 15000);
     itemForSearch.click();
   });
 
   it('check for title of product at www.amazon.com', async function () {
-    // await browser.wait(until.visibilityOf(productNameFull), 15000);
     await expect(productNameFull.getText()).toContain('Lenovo IdeaPad 2019');
   });
 
