@@ -35,7 +35,9 @@ describe('End to End AngularApp testing', function () {
     await browser.waitForAngularEnabled(false);
     await logInBtn.click();
     await browser.wait(until.presenceOf(usrPrfBtn), 15000);
-    expect(usrPrfBtn.getText()).toEqual('Aliaksandr K.');
+    expect(usrPrfBtn.getText())
+    .toEqual('Aliaksandr K.',
+    'expected username Credidentials "Aliaksandr K." on button ');
     await browser.waitForAngularEnabled(true);
   });
 
@@ -43,7 +45,9 @@ describe('End to End AngularApp testing', function () {
     await usrPrfBtn.click();
     text = await profileUsrField.getText();
     getUserStatusText = await text.replace(/(((\n)Online)|((\n)Offline))+/g, '');
-    expect(getUserStatusText).toEqual('Aliaksandr K.');
+    expect(getUserStatusText)
+    .toEqual('Aliaksandr K.',
+    `expected user status text to have a "Aliaksandr K." credidentials before it,actual is ${getUserStatusText}`);
   });
 
   it('Press "Edit Profile" button', async function () {
@@ -57,7 +61,9 @@ describe('End to End AngularApp testing', function () {
       .perform();
     await browser.wait(until.visibilityOf(skillSelectionWindowTitle), 15000);
     text = await skillSelectionWindowTitle.getText();
-    expect(text).toContain('Select your skills and expertise');
+    expect(text)
+    .toContain('Select your skills and expertise',
+    `expected a title of skills selection window to contain "Select your skills and expertise", actual full text is ${text}`);
   });
 
   it('Remove all skills', async function () {
@@ -72,7 +78,8 @@ describe('End to End AngularApp testing', function () {
         skill.click();
       });
     });
-    expect(skillsForEdit.length).toEqual(4);
+    expect(skillsForEdit.length)
+    .toEqual(4,`expected to have 4 predefined skills, actuall is ${skillsForEdit.length}`);
   });
 
   it('Check for skills after exit without save', async function () {
@@ -87,8 +94,8 @@ describe('End to End AngularApp testing', function () {
           editableSkills.push(someText);
         });
       });
-    //check for skills count to be the same, cause we haven't saved changes
-    expect(editableSkills.length).toEqual(4);
+    expect(editableSkills.length)
+    .toEqual(4,`expected skills count not to change after exit without save, actual is ${editableSkills.length}`);
   });
 
   it('Check for skills in jobs', async function () {
@@ -96,24 +103,28 @@ describe('End to End AngularApp testing', function () {
     await jobsBtn.click();
     await worksSkillsItems.then((skills) => {
       skills.forEach((skill) => {
-        let someText = (skill.getText()).then(rawText => rawText.replace(/(\r\n\t|\n|\r\t)/gm, '')).then(properText => properText.trim());
+        let someText = (skill.getText()).then(rawText => rawText.replace(/(\r\n\t|\n|\r\t)/gm, ''))
+        .then(properText => properText.trim());
         jobsSkills.push(someText);
       });
     });
-    expect(jobsSkills.length).toEqual(4);
+    expect(jobsSkills.length)
+    .toEqual(4,`expected skills count to be the same after we made an exit without save,actual is ${jobsSkills.length}`);
   });
 
   it('Check for skills  after clear button', async function () {
-    jobsSkills = [];
+   let jobsSkills = [];
     await clearSkillsBtn.click();
     await worksSkillsItems
       .then((skills) => {
         skills.forEach((skill) => {
-          let someText = (skill.getText()).then(rawText => rawText.replace(/(\r\n\t|\n|\r\t)/gm, '')).then(properText => properText.trim());
+          let someText = (skill.getText()).then(rawText => rawText.replace(/(\r\n\t|\n|\r\t)/gm, ''))
+          .then(properText => properText.trim());
           jobsSkills.push(someText);
         });
       });
-    expect(jobsSkills.length).toEqual(0);
+    expect(jobsSkills.length)
+    .toEqual(0,`expected skills count to be zero after pressing "clear Skills Button" in jobs, actual is ${jobsSkills.length}`);
   });
 
   it('Click Sidebar Button', async function () {
@@ -123,9 +134,10 @@ describe('End to End AngularApp testing', function () {
 
   it('Click Logout Button', async function () {
     await sidebarLogOutBtn.click();
-    expect(startLogInBtn.getText()).toEqual('Log In');
+    expect(startLogInBtn.getText()).toEqual('Log In', 'haven\'t found Log In button after log out');
   });
 });
+
 describe('non-Angular page test', function () {
   const searchBox = element(by.css('input#twotabsearchtextbox'));
   const startSearchBtn = element(by.css('input.nav-input[value="Go"]'));
@@ -148,7 +160,8 @@ describe('non-Angular page test', function () {
   });
 
   it('check for title of product at www.amazon.com', async function () {
-    await expect(productNameFull.getText()).toContain('Lenovo IdeaPad 2019');
+    await expect(productNameFull.getText())
+    .toContain('Lenovo IdeaPad 2019',`expected to find "Lenovo IdeaPad 2019" in FullName, but found ${productNameFull} as full name`);
   });
 
 });
